@@ -48,8 +48,10 @@ def _printLoginTest(driver):
 
     if "logout" in driver.page_source:
         print("Login succeded")
+        return True
     else:
         print("Login failed")
+        return False
 
 
 
@@ -147,11 +149,16 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     # Likes
     xpath = "/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div[4]/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div[4]/div/div/div[2]/div/div/span/span"
     
+    
+   
     # Login to browser
     driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
-    # Test login
-    _printLoginTest(driver)
-
+    
+    trys = 0
+    while(not _printLoginTest(driver) && trys < 5):
+        driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
+        trys++
+  
     # Try getting xpath element if not specified scroll and wait as neccassary
     try:
         

@@ -157,7 +157,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     trys = 0
     while(not _printLoginTest(driver) and trys < 5):
         driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
-        trys++
+        trys+=1
   
     # Try getting xpath element if not specified scroll and wait as neccassary
     try:

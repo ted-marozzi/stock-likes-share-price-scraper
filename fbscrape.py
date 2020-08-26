@@ -155,7 +155,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
     
     trys = 0
-    while(not _printLoginTest(driver) && trys < 5):
+    while(not _printLoginTest(driver) and trys < 5):
         driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
         trys++
   

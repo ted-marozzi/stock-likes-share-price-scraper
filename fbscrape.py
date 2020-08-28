@@ -99,7 +99,7 @@ def getPageLikes(pageName, pageSoup):
     else:
         
         elementToScrape = "span"
-        classNumLikes = "oi732d6d"
+        classNumLikes = "oi732d6d ik7dh3pa d2edcug0 hpfvmrgz qv66sw1b c1et5uql jq4qci2q a3bd9o3v knj5qynh oo9gr5id"
         indexNumLikes = 0
         
         # Extract number of page likes
@@ -147,7 +147,8 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     secret = _getSecretKeys()
 
     # Likes
-    xpath = "/html/body/div[1]/div/div/div[1]/div[3]/div/div/div[1]/div/div[4]/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div[4]/div/div/div[2]/div/div/span/span"
+
+    xpath= "/html/body/div[1]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[4]/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div[5]/div[1]/div/div/div[2]/div/div/span/span[1]"
     
     
    

@@ -99,7 +99,7 @@ def getPageLikes(pageName, pageSoup):
     else:
         
         elementToScrape = "span"
-        classNumLikes = "oi732d6d ik7dh3pa d2edcug0 hpfvmrgz qv66sw1b c1et5uql jq4qci2q a3bd9o3v knj5qynh oo9gr5id"
+        classNumLikes = "oi732d6d"
         indexNumLikes = 0
         
         # Extract number of page likes

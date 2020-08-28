@@ -162,7 +162,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     # Try getting xpath element if not specified scroll and wait as neccassary
     try:
         
-        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, xpath)))
+        WebDriverWait(driver, 60).until(EC.presence_of_element_located((By.XPATH, xpath)))
     except:
         print("Exception element not located.")
 
@@ -195,7 +195,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         last_height = new_height
 
 
-    
+    time.sleep(10)
     pageSoup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.quit()
 

@@ -195,7 +195,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         last_height = new_height
 
 
-    time.sleep(10)
+
     pageSoup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.quit()
 

@@ -19,7 +19,7 @@ OUT_PATH = "out/"
 
 
 # Logs into facebook
-def _FBLogin(username, password, pageName, chromedriverPath="/usr/lib/chromium-browser/chromedriver", headless=True):
+def _FBLogin(username, password, pageName, chromedriverPath="C:/bin/chromedriver_win32/chromedriver.exe", headless=True):
     # Path to your chromedriver.exe
     # CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
     WINDOW_SIZE = "1920,1080"
@@ -284,7 +284,7 @@ if __name__ == '__main__':
     # Page name is the string in the ur of page after www.facebook.com/
     pageName = "pointsbet"
 
-    pageSoup = getPageSoup(pageName)
+    pageSoup = getPageSoup(pageName, headless=False)
 
 
     #pageSoup = BeautifulSoup(open("out/pointsbet/pointsbet.html"), "html.parser")

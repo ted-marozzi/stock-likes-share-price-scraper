@@ -2,3 +2,4 @@
 *.sh
 *.swp
 __pycache__/*
+.pyc

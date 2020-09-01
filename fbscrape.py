@@ -15,11 +15,13 @@ from datetime import date
 
 import os
 
+import asxscrape as asx
+
 OUT_PATH = "out/"
 
 
 # Logs into facebook
-def _FBLogin(username, password, pageName, chromedriverPath="/usr/lib/chromium-browser/chromedriver", headless=True):
+def _FBLogin(username, password, pageName, chromedriverPath="C:/bin/chromedriver_win32/chromedriver.exe", headless=True):
     # Path to your chromedriver.exe
     # CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
     WINDOW_SIZE = "1920,1080"
@@ -90,7 +92,7 @@ def getPageLikes(pageName, pageSoup):
         dateLogged = lastLine.split(", ")[1].split('\n')[0] == today.strftime("%d/%m/%Y")
     except IndexError:
         with open(logPath, "a") as fileHandle:
-            fileHandle.write(pageName + " page likes, date\n")
+            fileHandle.write(pageName.capitalize() + " Page Likes, Date, Share Price")
             dateLogged = False
     
     if(dateLogged):
@@ -130,8 +132,11 @@ def getPageLikes(pageName, pageSoup):
         print("Number of likes", numberOfLikes)
         today = date.today()
 
+        asxSoup = asx.getAsxSoup("https://www.asx.com.au/asx/share-price-research/company/PBH")
+        
+
         with open(logPath, "a") as fileHandle:
-            fileHandle.write(str(numberOfLikes) + today.strftime(", %d/%m/%Y\n"))
+            fileHandle.write("\n"+ str(numberOfLikes) + today.strftime(", %d/%m/%Y") + ", " + str(asx.getSharePrice(asxSoup)))
             dateLogged = False
 
 
@@ -279,7 +284,8 @@ def greedyScrapePage(pageName):
     return pageLikes, pagePostLikesList
 
 
-    
+
+
 if __name__ == '__main__':
 
     # Page name is the string in the ur of page after www.facebook.com/

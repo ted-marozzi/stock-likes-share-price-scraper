@@ -10,8 +10,9 @@ from bs4 import BeautifulSoup
 
 
 def getAsxSoup(url):
-    #CHROME_PATH = '/usr/bin/google-chrome'
-    CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
+
+    CHROMEDRIVER_PATH = '/usr/lib/chromium-browser/chromedriver'
+    #CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
     WINDOW_SIZE = "1920,1080"
 
     chrome_options = Options()  

@@ -139,7 +139,7 @@ def getPageLikes(pageName, pageSoup):
         
 
         with open(logPath, "a") as fileHandle:
-            fileHandle.write("\n"+ str(numberOfLikes) + today.strftime(", %d/%m/%Y") + ", " + str(asx.getSharePrice(asxSoup)))
+            fileHandle.write("\n" + today.strftime("%d/%m/%Y, ") + str(numberOfLikes) + ", " + str(asx.getSharePrice(asxSoup)))
             dateLogged = False
 
 

@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 import time
 import json
+import csv
 
 from matplotlib import pyplot as plt
 
@@ -21,7 +22,7 @@ OUT_PATH = "out/"
 
 
 # Logs into facebook
-def _FBLogin(username, password, pageName, chromedriverPath="C:/bin/chromedriver_win32/chromedriver.exe", headless=True):
+def _FBLogin(username, password, pageName, headless=True):
     # Path to your chromedriver.exe
     # CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
     WINDOW_SIZE = "1920,1080"
@@ -81,21 +82,27 @@ def getPageLikes(pageName, pageSoup):
     # Create the file if needed
     with open(logPath, "a") as fileHandle:
         pass
-
     lastLine = ""
-
-    # Check log file for the last line logged
-    with open(logPath, "r") as fileHandle:
-        for lastLine in fileHandle:
-            pass  
+    try:
+        # Check log file for the last line logged
+        with open(logPath, "r") as fileHandle:
+            lines = fileHandle.read().splitlines()
+            
+            lastLine = lines[-1]
+           
+    except:
+        pass
     
     today = date.today()
-    
+    print("YOYOYOOYOY" + lastLine)
     try:
-        dateLogged = lastLine.split(", ")[1].split('\n')[0] == today.strftime("%d/%m/%Y")
+        dateLogged = lastLine.split(",")[1].split('\n')[0] == today.strftime("%d/%m/%Y")
     except IndexError:
-        with open(logPath, "a") as fileHandle:
-            fileHandle.write(pageName.capitalize() + " Page Likes, Date, Share Price")
+        with open(logPath, "a", newline='') as fileHandle:
+
+            writer = csv.writer(fileHandle)
+            writer.writerow([pageName.capitalize() + " Page Likes", "Date", "Share Price"])
+          
             dateLogged = False
     
     if(dateLogged):
@@ -137,12 +144,12 @@ def getPageLikes(pageName, pageSoup):
 
         asxSoup = asx.getAsxSoup("https://www.asx.com.au/asx/share-price-research/company/PBH")
         
+        with open(logPath, "a", newline='') as fileHandle:
 
-        with open(logPath, "a") as fileHandle:
-            fileHandle.write("\n" + today.strftime("%d/%m/%Y, ") + str(numberOfLikes) + ", " + str(asx.getSharePrice(asxSoup)))
+            writer = csv.writer(fileHandle)
+            writer.writerow([today.strftime("%d/%m/%Y"),  str(numberOfLikes), str(asx.getSharePrice(asxSoup))])
             dateLogged = False
-
-
+          
 
         return numberOfLikes
     
@@ -209,7 +216,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     driver.quit()
 
     _makeOutDirectory(pageName)
-    _writeSoupToFile(pageSoup, pageName)
+    #_writeSoupToFile(pageSoup, pageName)
     
     return pageSoup
 

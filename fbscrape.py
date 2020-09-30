@@ -94,8 +94,9 @@ def getPageLikes(pageName, pageSoup):
         pass
     
     today = date.today()
-    print("YOYOYOOYOY" + lastLine)
+ 
     try:
+     
         dateLogged = lastLine.split(",")[1].split('\n')[0] == today.strftime("%d/%m/%Y")
     except IndexError:
         with open(logPath, "a", newline='') as fileHandle:
@@ -117,17 +118,15 @@ def getPageLikes(pageName, pageSoup):
         
         # Extract number of page likes
         numberOfLikesArr = pageSoup.find_all(elementToScrape, class_= classNumLikes)
-        print("arr", numberOfLikesArr)
+    
         numbers = []
         for ele in numberOfLikesArr:
 
             ele = ele.text.split(' ')[0]
-            
-            if ele[0].isnumeric():
+            ele = ele.replace(",", "")
+            print(ele)
+            if ele.isnumeric():
                 
-
-                ele = ele.replace(",", "")
-
                 numbers.append(int(ele))
                
 

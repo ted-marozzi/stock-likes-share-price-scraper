@@ -22,14 +22,11 @@ OUT_PATH = "out/"
 
 
 # Logs into facebook
-def _FBLogin(username, password, pageName, headless=True):
+def _FBLogin(username, password, pageName, chromedriverPath='/usr/lib/chromium-browser/chromedriver', headless=True):
     # Path to your chromedriver.exe
     # CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
     WINDOW_SIZE = "1920,1080"
     
-    CHROMEDRIVER_PATH = '/usr/lib/chromium-browser/chromedriver'
-    #CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
-    chromedriverPath = CHROMEDRIVER_PATH
     chromeOptions = Options()  
 
     # Should open window or not?
@@ -72,7 +69,7 @@ def _getSecretKeys():
         return json.load(fileHandle)
 
 # Works as of 31/07/2020
-def getPageLikes(pageName, pageSoup):
+def getPageLikes(pageName, pageSoup, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
 
     
     _makeOutDirectory(pageName)
@@ -97,7 +94,9 @@ def getPageLikes(pageName, pageSoup):
  
     try:
      
-        dateLogged = lastLine.split(",")[1].split('\n')[0] == today.strftime("%d/%m/%Y")
+        dateLogged = lastLine.split(",")[0].split('\n')[0] == today.strftime("%d/%m/%Y")
+
+        print(dateLogged, lastLine.split(",")[1].split('\n')[0])
     except IndexError:
         with open(logPath, "a", newline='') as fileHandle:
 
@@ -142,7 +141,7 @@ def getPageLikes(pageName, pageSoup):
         print("Number of likes", numberOfLikes)
         today = date.today()
 
-        asxSoup = asx.getAsxSoup("https://www.asx.com.au/asx/share-price-research/company/PBH")
+        asxSoup = asx.getAsxSoup("https://www.asx.com.au/asx/share-price-research/company/PBH", chromedriverPath=chromedriverPath)
         
         with open(logPath, "a", newline='') as fileHandle:
 
@@ -156,7 +155,7 @@ def getPageLikes(pageName, pageSoup):
     
 
 
-def getPageSoup(pageName, maxScroll=1, headless=True):
+def getPageSoup(pageName, maxScroll=1, headless=True, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
 
     # Get Authentifaction
     secret = _getSecretKeys()
@@ -168,7 +167,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     
    
     # Login to browser
-    driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless)
+    driver = _FBLogin(secret["Username"], secret["Password"], pageName, headless=headless, chromedriverPath=chromedriverPath)
     
     trys = 0
     while(not _printLoginTest(driver) and trys < 5):

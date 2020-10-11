@@ -24,23 +24,48 @@ def getAsxSoup(url):
     driver = webdriver.Chrome(CHROMEDRIVER_PATH, options=chrome_options)
     print(url)
     driver.get(url)
+
+    # Try getting xpath element if not specified scroll and wait as neccassary
     try:
-        WebDriverWait(driver, 45).until(EC.presence_of_element_located((By.CSS_SELECTOR,"span.ng-binding")))
+        
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
-        print("Exception")
+        print("Exception element not located.")
+
+            
 
     finally:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()
-        return soup
+
+    return soup
         
 
 def getSharePrice(asx_soup):
-    sharePrice = asx_soup.find_all("span", {"class": "ng-binding"})
+    sharePrice = asx_soup.find_all("dl", class_= "dl-lg")
+    
 
     sharePrice = [_.text for _ in sharePrice]
-    sharePrice = sharePrice[1]
+    print(sharePrice)
+    sharePrice = sharePrice[0]
+    sharePrice = sharePrice.split()
+    sharePrice = sharePrice[5]
+    print(sharePrice)
 
     return sharePrice
 
+
+
+
+if __name__ == '__main__':
+
+    # Page name is the string in the ur of page after www.facebook.com/
+    pageName = "pointsbet"
+    soup = getAsxSoup("https://www2.asx.com.au/markets/company/PBH")
+
+    print(getSharePrice(soup))
+
+
 #############################################################
+
+

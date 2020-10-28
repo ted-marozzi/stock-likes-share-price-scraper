@@ -27,7 +27,7 @@ def getAsxSoup(url, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
     # Try getting xpath element if not specified scroll and wait as neccassary
     try:
         
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         print("Exception element not located.")
 

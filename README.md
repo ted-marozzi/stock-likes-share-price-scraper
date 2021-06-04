@@ -8,7 +8,14 @@
 
 2) Install chromedriver and pass the path to functions required
 
-https://chromedriver.chromium.org/downloads
+    You may need to know your chrome verion number 
+
+    chrome://settings/help
+
+    to get the correct chrome driver here
+
+
+    https://chromedriver.chromium.org/downloads
 
 
 Ex below:

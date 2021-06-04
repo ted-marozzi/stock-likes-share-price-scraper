@@ -14,35 +14,31 @@ def getAsxSoup(url, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
 
     WINDOW_SIZE = "1920,1080"
 
-    chrome_options = Options()  
-    chrome_options.add_argument("--headless")  
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
 
 
-    
+
     driver = webdriver.Chrome(chromedriverPath, options=chrome_options)
     print(url)
     driver.get(url)
 
-    # Try getting xpath element if not specified scroll and wait as neccassary
+    # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        
         WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         print("Exception element not located.")
 
-            
 
     finally:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()
 
     return soup
-        
 
 def getSharePrice(asx_soup):
     sharePrice = asx_soup.find_all("dl", class_= "dl-lg")
-    
 
     sharePrice = [_.text for _ in sharePrice]
     print(sharePrice)

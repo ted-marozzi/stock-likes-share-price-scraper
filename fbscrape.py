@@ -48,7 +48,7 @@ def _FBLogin(username, password, pageName, chromedriverPath='/usr/lib/chromium-b
 def _printLoginTest(driver):
 
     if "logout" in driver.page_source:
-        print("Login succeded")
+        print("Login succeeded")
         return True
     else:
         print("Login failed")
@@ -112,13 +112,13 @@ def getPageSoup(pageName, maxScroll=1, headless=True, chromedriverPath='/usr/lib
     driver = _FBLogin(secret["Username"], secret["Password"], pageName,
                       headless=headless, chromedriverPath=chromedriverPath)
 
-    trys = 0
-    while(not _printLoginTest(driver) and trys < 5):
+    attempts = 0
+    while(not _printLoginTest(driver) and attempts < 5):
         driver = _FBLogin(
             secret["Username"], secret["Password"], pageName, headless=headless)
-        trys += 1
+        attempts += 1
 
-    # Try getting xpath element if not specified scroll and wait as neccassary
+    # Try getting xpath element if not specified scroll and wait as necessary
     try:
 
         WebDriverWait(driver, 30).until(
@@ -235,13 +235,13 @@ if __name__ == '__main__':
 
     # TODO =>
     # Lucas:
-    #   More decriptive errors and print info
-    #   Make averging function
+    #   More descriptive errors and print info
+    #   Make averaging function
     #
     # Ted:
     #   make pip installable
     #   scrape profiles
-    #   make pip install dependacies, and secret .json
+    #   make pip install dependencies, and secret .json
     #   tell users how to install chrome driver, make fn smaller name, make module package make sense
     #   update read me
     #

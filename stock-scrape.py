@@ -13,14 +13,13 @@ for i in range(5):
         sharePrice = asx.getSharePrice(asx.getAsxSoup(
             "https://www2.asx.com.au/markets/company/PBH"))
         log.log(pageName, likes, sharePrice)
-        
-        
+
         pageName = "ZipAU"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         sharePrice = asx.getSharePrice(asx.getAsxSoup(
             "https://www2.asx.com.au/markets/company/Z1P"))
         log.log(pageName, likes, sharePrice)
-        
+
         break
     except Exception as e:
         print(e)

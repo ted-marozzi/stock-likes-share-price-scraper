@@ -7,6 +7,10 @@
 }
 
 2) Install chromedriver and pass the path to functions required
+
+https://chromedriver.chromium.org/downloads
+
+
 Ex below:
 ```
 CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'

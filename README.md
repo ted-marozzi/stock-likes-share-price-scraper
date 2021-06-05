@@ -27,6 +27,7 @@ Ex below:
 for i in range(5):
 
     try:
+        # This is the page name of the url on facebook
         pageName = "pointsbet"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         sharePrice = asx.getSharePrice(asx.getAsxSoup(

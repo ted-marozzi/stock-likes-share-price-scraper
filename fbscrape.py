@@ -71,7 +71,7 @@ def getPageLikes(pageName, pageSoup):
     dateLogged, lastLine = log.isDateLogged(pageName)
 
     if(dateLogged):
-        numberOfLikes = lastLine.split(",")[0]
+        numberOfLikes = lastLine.split(",")[1]
     else:
 
         elementToScrape = "span"

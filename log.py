@@ -9,12 +9,12 @@ def log(pageName, numberOfLikes, sharePrice):
     _makeOutDirectory(pageName)
     today = date.today()
     logPath = "out/" + pageName + "/" + pageName + ".csv"
+    if not isDateLogged(pageName):
+        with open(logPath, "a", newline='') as fileHandle:
+            writer = csv.writer(fileHandle)
+            writer.writerow([today.strftime("%d/%m/%Y"),
+                            str(numberOfLikes), str(sharePrice)])
 
-    with open(logPath, "a", newline='') as fileHandle:
-        writer = csv.writer(fileHandle)
-        writer.writerow([today.strftime("%d/%m/%Y"),
-                        str(numberOfLikes), str(sharePrice)])
-        dateLogged = False
 
 
 def isDateLogged(pageName):
@@ -34,7 +34,7 @@ def isDateLogged(pageName):
     dateLogged = True
 
     try:
-        dateLogged = lastLine.split('\n')[0].split(",")[0] == today.strftime("%d/%m/%Y")
+        dateLogged = lastLine.split(",")[0] == today.strftime("%d/%m/%Y")
     except IndexError:
         dateLogged = False
 
@@ -55,7 +55,7 @@ def _makeOutDirectory(pageName):
         with open(csvPath, "a", newline='') as fileHandle:
             writer = csv.writer(fileHandle)
             writer.writerow(
-                [pageName.capitalize() + " Page Likes", "Date", "Share Price"])
+                ["Date", pageName.capitalize() + " Page Likes", "Share Price"])
 
 
 

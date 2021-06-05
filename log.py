@@ -11,7 +11,6 @@ def log(pageName, numberOfLikes, sharePrice):
     logPath = "out/" + pageName + "/" + pageName + ".csv"
 
     with open(logPath, "a", newline='') as fileHandle:
-
         writer = csv.writer(fileHandle)
         writer.writerow([today.strftime("%d/%m/%Y"),
                         str(numberOfLikes), str(sharePrice)])
@@ -21,36 +20,24 @@ def log(pageName, numberOfLikes, sharePrice):
 def isDateLogged(pageName):
     _makeOutDirectory(pageName)
     logPath = OUT_PATH + pageName + "/" + pageName + ".csv"
-    # Create the file if needed
-    with open(logPath, "a") as fileHandle:
-        pass
+
     lastLine = ""
     try:
         # Check log file for the last line logged
         with open(logPath, "r") as fileHandle:
             lines = fileHandle.read().splitlines()
-
             lastLine = lines[-1]
-
     except:
         pass
 
     today = date.today()
     dateLogged = True
-    lastLine = ""
+
     try:
-        dateLogged = lastLine.split(",")[0].split(
-            '\n')[0] == today.strftime("%d/%m/%Y")
-
+        dateLogged = lastLine.split('\n')[0].split(",")[0] == today.strftime("%d/%m/%Y")
     except IndexError:
-        with open(logPath, "a", newline='') as fileHandle:
+        dateLogged = False
 
-            writer = csv.writer(fileHandle)
-            writer.writerow(
-                [pageName.capitalize() + " Page Likes", "Date", "Share Price"])
-
-            dateLogged = False
-    
     return dateLogged, lastLine
 
 
@@ -62,6 +49,14 @@ def _makeOutDirectory(pageName):
     # Creates the page folder if needed
     if not os.path.exists(OUT_PATH + pageName):
         os.makedirs(OUT_PATH + pageName)
+
+    csvPath = OUT_PATH + pageName + "/" + pageName + ".csv"
+    if not os.path.exists(csvPath):
+        with open(csvPath, "a", newline='') as fileHandle:
+            writer = csv.writer(fileHandle)
+            writer.writerow(
+                [pageName.capitalize() + " Page Likes", "Date", "Share Price"])
+
 
 
 

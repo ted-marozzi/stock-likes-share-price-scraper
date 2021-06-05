@@ -1,33 +1,36 @@
 # Instructions:
-1) Make secret.json file for fb login in root directory
+1) Make secret.json file for facebook login in root directory
 
 {
-    "Username": "foo@bar.com"
+    "Username": "foo@bar.com",
     "Password": "foobar"
 }
 
 2) Install chromedriver and pass the path to functions required
 
-    You may need to know your chrome verion number 
+    You may need to know your chrome version number
 
     chrome://settings/help
 
     to get the correct chrome driver here
 
-
     https://chromedriver.chromium.org/downloads
 
+    Then add chromedriver exe to path, or maybe put it in the root folder idk if that will work though.
+
+3)
+    pip install the following packages: selenium, bs4, matplotlib
 
 Ex below:
 ```
-CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
+
 for i in range(5):
 
     try:
         pageName = "pointsbet"
-        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName, chromedriverPath=CHROMEDRIVER_PATH), chromedriverPath=CHROMEDRIVER_PATH)
+        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         sharePrice = asx.getSharePrice(asx.getAsxSoup(
-            "https://www.asx.com.au/asx/share-price-research/company/PBH", chromedriverPath=CHROMEDRIVER_PATH))
+            "https://www.asx.com.au/asx/share-price-research/company/PBH"))
         log.log(pageName, likes, sharePrice)
         break
     except Exception as e:

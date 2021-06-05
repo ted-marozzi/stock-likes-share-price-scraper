@@ -9,28 +9,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 
 
-def getAsxSoup(url, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
-
-
+def getAsxSoup(ticker):
+    url = "https://www2.asx.com.au/markets/company/" + ticker
     WINDOW_SIZE = "1920,1080"
-
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
+    driver = webdriver.Chrome(options=chrome_options)
 
-
-
-    driver = webdriver.Chrome(chromedriverPath, options=chrome_options)
-    print(url)
     driver.get(url)
-
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, "")))
-    except:
-        print("Exception element not located.")
-
-
+        WebDriverWait(driver, 15)
     finally:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()
@@ -45,7 +35,7 @@ def getSharePrice(asx_soup):
     sharePrice = sharePrice[0]
     sharePrice = sharePrice.split()
     sharePrice = sharePrice[5]
-    print(sharePrice)
+    print("The share price is", sharePrice)
 
     return sharePrice
 

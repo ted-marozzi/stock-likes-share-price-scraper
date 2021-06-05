@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 
 import time
@@ -21,9 +22,8 @@ import asxscrape as asx
 
 
 # Logs into facebook
-def _FBLogin(username, password, pageName, chromedriverPath='/usr/lib/chromium-browser/chromedriver', headless=True):
-    # Path to your chromedriver.exe
-    # CHROMEDRIVER_PATH = 'C:/bin/chromedriver_win32/chromedriver.exe'
+def _FBLogin(username, password, headless=True):
+
     WINDOW_SIZE = "1920,1080"
 
     chromeOptions = Options()
@@ -35,12 +35,13 @@ def _FBLogin(username, password, pageName, chromedriverPath='/usr/lib/chromium-b
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
     # Opens page and fills in form
-    driver = webdriver.Chrome(chromedriverPath, options=chromeOptions)
-    pageName = '/' + pageName
-    driver.get("https://www.facebook.com" + pageName)
+    driver = webdriver.Chrome(options=chromeOptions)
+
+    driver.get("https://www.facebook.com")
     driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
-    driver.find_element_by_xpath('//input[@value="Log In"]').click()
+    driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
+
 
     return driver
 
@@ -65,12 +66,12 @@ def _getSecretKeys():
 # Works as of 31/07/2020
 
 
-def getPageLikes(pageName, pageSoup, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
+def getPageLikes(pageName, pageSoup):
 
     dateLogged, lastLine = log.isDateLogged(pageName)
 
     if(dateLogged):
-        return lastLine.split(", ")[0]
+        numberOfLikes = lastLine.split(",")[0]
     else:
 
         elementToScrape = "span"
@@ -81,7 +82,7 @@ def getPageLikes(pageName, pageSoup, chromedriverPath='/usr/lib/chromium-browser
         # Extract number of page likes
         numberOfLikesArr = pageSoup.find_all(
             elementToScrape, class_=classNumLikes)
-        print(numberOfLikesArr)
+
         numbers = []
         for ele in numberOfLikesArr:
 
@@ -96,35 +97,35 @@ def getPageLikes(pageName, pageSoup, chromedriverPath='/usr/lib/chromium-browser
 
         numberOfLikes = numbers[0]
 
-        return numberOfLikes
+    print(pageName, "page has", numberOfLikes, "likes")
+    return numberOfLikes
 
 
-def getPageSoup(pageName, maxScroll=1, headless=True, chromedriverPath='/usr/lib/chromium-browser/chromedriver'):
+def getPageSoup(pageName, maxScroll=1, headless=True):
 
-    # Get Authentifaction
+    # Get Authentication
     secret = _getSecretKeys()
 
     # Likes
-
     xpath = "/html/body/div[1]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[4]/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div[5]/div[1]/div/div/div[2]/div/div/span/span[1]"
 
     # Login to browser
-    driver = _FBLogin(secret["Username"], secret["Password"], pageName,
-                      headless=headless, chromedriverPath=chromedriverPath)
+    driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
 
     attempts = 0
     while(not _printLoginTest(driver) and attempts < 5):
-        driver = _FBLogin(
-            secret["Username"], secret["Password"], pageName, headless=headless)
+        driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
         attempts += 1
 
-    # Try getting xpath element if not specified scroll and wait as necessary
     try:
-
-        WebDriverWait(driver, 30).until(
-            EC.presence_of_element_located((By.XPATH, xpath)))
+        WebDriverWait(driver, 5)
+        driver.get("https://www.facebook.com/" + pageName)
     except:
-        print("Element not located, still attempting scrape anyway.")
+        print("Page may not have been navigated too, still scraping anyway")
+
+    # Try getting xpath element if not specified scroll and wait as necessary
+
+    WebDriverWait(driver, 10)
 
     SCROLL_PAUSE_TIME = 1
     RETRYS = 3
@@ -205,7 +206,7 @@ def getPagePostLikes(pageName, pageSoup):
         postLikesList[i] = _strToNum(postLikesList[i].text)
 
     postLikesList = list(reversed(postLikesList))
-
+    print(postLikesList)
     return postLikesList
 
 

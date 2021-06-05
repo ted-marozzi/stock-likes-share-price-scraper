@@ -67,7 +67,7 @@ def _getSecretKeys():
 
 
 def getPageLikes(pageName, pageSoup):
-    print("Got the soup")
+    print("Got the soup", pageSoup)
     dateLogged, lastLine = log.isDateLogged(pageName)
     print("Date logged is:", dateLogged)
     if(dateLogged):
@@ -150,7 +150,6 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         if new_height == last_height and iterCount == RETRYS:
             break
         elif new_height == last_height:
-            print("Retry", iterCount + 1, "for scroll", i)
             iterCount += 1
             i -= 1
 

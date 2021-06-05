@@ -123,9 +123,10 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         print("Page may not have been navigated to, still scraping anyway")
 
     # Try getting xpath element if not specified scroll and wait as necessary
-
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
-
+    try:
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+    except:
+        pass
     SCROLL_PAUSE_TIME = 2
     RETRYS = 3
 

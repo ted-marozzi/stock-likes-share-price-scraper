@@ -2,8 +2,6 @@ import fbscrape as fb
 import asxscrape as asx
 import log
 
-
-
 for i in range(5):
 
     try:

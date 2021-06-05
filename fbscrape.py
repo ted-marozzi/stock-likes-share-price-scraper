@@ -117,7 +117,6 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
 
     try:
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
-        
     except:
         pass
     finally:
@@ -129,7 +128,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     except:
         pass
     SCROLL_PAUSE_TIME = 2
-    RETRYS = 3
+    RETRIES = 3
 
     # Get scroll height
     last_height = driver.execute_script("return document.body.scrollHeight")
@@ -147,7 +146,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
 
         # Calculate new scroll height and compare with last scroll height
         new_height = driver.execute_script("return document.body.scrollHeight")
-        if new_height == last_height and iterCount == RETRYS:
+        if new_height == last_height and iterCount == RETRIES:
             break
         elif new_height == last_height:
             iterCount += 1

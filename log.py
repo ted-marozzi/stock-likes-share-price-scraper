@@ -6,10 +6,11 @@ OUT_PATH = "out/"
 
 
 def log(pageName, numberOfLikes, sharePrice):
+    
     _makeOutDirectory(pageName)
     today = date.today()
     logPath = "out/" + pageName + "/" + pageName + ".csv"
-    if not isDateLogged(pageName):
+    if not isDateLogged(pageName)[0]:
         with open(logPath, "a", newline='') as fileHandle:
             writer = csv.writer(fileHandle)
             writer.writerow([today.strftime("%d/%m/%Y"),
@@ -37,7 +38,6 @@ def isDateLogged(pageName):
         dateLogged = lastLine.split(",")[0] == today.strftime("%d/%m/%Y")
     except IndexError:
         dateLogged = False
-
     return dateLogged, lastLine
 
 

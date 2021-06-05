@@ -36,7 +36,7 @@ def _FBLogin(username, password, headless=True):
     chromeOptions.add_argument("disable-notifications")
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
-
+    driver.get("https://www.facebook.com/")
     driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)

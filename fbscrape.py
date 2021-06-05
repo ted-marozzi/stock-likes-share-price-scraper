@@ -37,7 +37,6 @@ def _FBLogin(username, password, headless=True):
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
 
-    driver.get("https://www.facebook.com")
     driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
@@ -117,10 +116,12 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         attempts += 1
 
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
-        driver.get("https://www.facebook.com/" + pageName)
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
+        
     except:
         pass
+    finally:
+        driver.get("https://www.facebook.com/" + pageName)
 
     # Try getting xpath element if not specified scroll and wait as necessary
     try:

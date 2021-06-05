@@ -67,11 +67,12 @@ def _getSecretKeys():
 
 
 def getPageLikes(pageName, pageSoup):
-
+    print("Got the soup")
     dateLogged, lastLine = log.isDateLogged(pageName)
-
+    print("Date logged is:", dateLogged)
     if(dateLogged):
         numberOfLikes = lastLine.split(",")[1]
+
     else:
 
         elementToScrape = "span"
@@ -84,17 +85,17 @@ def getPageLikes(pageName, pageSoup):
             elementToScrape, class_=classNumLikes)
 
         numbers = []
+        print("Potential numbers:", numberOfLikesArr)
         for ele in numberOfLikesArr:
 
             ele = ele.text.split(' ')[0]
             ele = ele.replace(",", "")
 
             if ele.isnumeric():
-
                 numbers.append(int(ele))
 
         numbers.sort(reverse=True)
-
+        print("Numbers:", numbers)
         numberOfLikes = numbers[0]
 
     print(pageName, "page has", numberOfLikes, "likes")

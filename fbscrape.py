@@ -67,7 +67,6 @@ def _getSecretKeys():
 
 
 def getPageLikes(pageName, pageSoup):
-    print("Got the soup", pageSoup)
     dateLogged, lastLine = log.isDateLogged(pageName)
     print("Date logged is:", dateLogged)
     if(dateLogged):
@@ -119,7 +118,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         attempts += 1
 
     try:
-        WebDriverWait(driver, 5)
+        WebDriverWait(driver, 15)
         driver.get("https://www.facebook.com/" + pageName)
     except:
         print("Page may not have been navigated too, still scraping anyway")

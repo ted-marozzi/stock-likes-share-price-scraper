@@ -6,7 +6,7 @@
     "Password": "foobar"
 }
 
-2) Install chromedriver and pass the path to functions required
+2) Install chromedriver and add to path, or maybe put it in the root folder idk if that will work though.
 
     You may need to know your chrome version number
 
@@ -16,25 +16,7 @@
 
     https://chromedriver.chromium.org/downloads
 
-    Then add chromedriver exe to path, or maybe put it in the root folder idk if that will work though.
-
 3)
     pip install the following packages: selenium, bs4, matplotlib
 
-Ex below:
-```
-
-for i in range(5):
-
-    try:
-        # This is the page name of the url on facebook
-        pageName = "pointsbet"
-        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = asx.getSharePrice(asx.getAsxSoup(
-            "https://www.asx.com.au/asx/share-price-research/company/PBH"))
-        log.log(pageName, likes, sharePrice)
-        break
-    except Exception as e:
-        print(e)
-
-```
+4) See stock-scrape for an example driver program

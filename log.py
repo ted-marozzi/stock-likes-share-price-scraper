@@ -61,6 +61,6 @@ def _makeOutDirectory(pageName):
 
 
 
-def _writeSoupToFile(pageSoup, pageName):
+def writeSoupToFile(pageSoup, pageName):
     with open(OUT_PATH + pageName + "/" + pageName + ".html", "w", encoding="utf=8") as fileHandle:
         fileHandle.write(str(pageSoup))

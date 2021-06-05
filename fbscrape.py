@@ -127,7 +127,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
 
     WebDriverWait(driver, 10)
 
-    SCROLL_PAUSE_TIME = 1
+    SCROLL_PAUSE_TIME = 2
     RETRYS = 3
 
     # Get scroll height

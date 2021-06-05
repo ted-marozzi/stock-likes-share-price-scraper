@@ -20,7 +20,9 @@ def getAsxSoup(ticker):
     driver.get(url)
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 15).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+    except:
+        pass
     finally:
         soup = BeautifulSoup(driver.page_source, 'html.parser')
         driver.quit()

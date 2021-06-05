@@ -121,7 +121,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         WebDriverWait(driver, 15)
         driver.get("https://www.facebook.com/" + pageName)
     except:
-        print("Page may not have been navigated too, still scraping anyway")
+        print("Page may not have been navigated to, still scraping anyway")
 
     # Try getting xpath element if not specified scroll and wait as necessary
 

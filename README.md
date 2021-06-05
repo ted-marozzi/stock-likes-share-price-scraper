@@ -20,3 +20,7 @@
     pip install the following packages: selenium, bs4, matplotlib
 
 4) See stock-scrape for an example driver program
+
+5) See how I used this bot too perform automated data analytics on google sheets
+
+https://docs.google.com/spreadsheets/d/1fd4rigWrHU5Rq5y7TZr6YR30uVKpme39_r6yaXJBfwI/edit#gid=643877149

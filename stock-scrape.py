@@ -8,7 +8,7 @@ for i in range(5):
 
     try:
         pageName = "pointsbet"
-        log._writeSoupToFile(fb.getPageSoup(pageName))
+        log._writeSoupToFile(fb.getPageSoup(pageName), pageName)
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         sharePrice = asx.getSharePrice(asx.getAsxSoup("PBH"))
         log.log(pageName, likes, sharePrice)

@@ -15,6 +15,14 @@ for i in range(5):
         sharePrice = asx.getSharePrice(asx.getAsxSoup("Z1P"))
         log.log(pageName, likes, sharePrice)
 
+        pageName = "mineralresourceslimited"
+        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
+        sharePrice = asx.getSharePrice(asx.getAsxSoup("MIN"))
+        log.log(pageName, likes, sharePrice)
+
+        
+
+
         break
     except Exception as e:
         print(e)

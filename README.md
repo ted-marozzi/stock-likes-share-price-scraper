@@ -24,3 +24,5 @@
 5) See how I used this bot too perform automated data analytics on google sheets
 
 https://docs.google.com/spreadsheets/d/1fd4rigWrHU5Rq5y7TZr6YR30uVKpme39_r6yaXJBfwI/edit#gid=643877149
+
+6) Add a PAT token to your github account called MY_PAT

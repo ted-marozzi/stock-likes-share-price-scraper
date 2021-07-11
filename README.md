@@ -16,8 +16,9 @@
 
     https://chromedriver.chromium.org/downloads
 
-3)
-    pip install the following packages: selenium, bs4, matplotlib
+3) Run
+
+```pip install -r requirments.txt```
 
 4) See stock-scrape for an example driver program
 

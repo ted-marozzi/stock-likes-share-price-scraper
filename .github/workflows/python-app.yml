@@ -43,7 +43,7 @@ jobs:
               
           - name: Make secret
             run: |
-              echo "{ "Username": "${{ secrets.FB_USER_NAME }}", "Password": "${{ secrets.FB_PASSWORD }}" }"
+              echo { "Username": "${{ secrets.FB_USER_NAME }}", "Password": "${{ secrets.FB_PASSWORD }}" }
               
               
           - name: Run Script

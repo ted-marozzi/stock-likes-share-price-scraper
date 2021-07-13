@@ -42,7 +42,7 @@ jobs:
               
           - name: Run Script
             run: |
-              python stock-scrape.py
+              python stockscrape.py
               
           - name: Commit
             run: |

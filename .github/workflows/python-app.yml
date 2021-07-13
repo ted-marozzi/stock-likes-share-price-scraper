@@ -39,16 +39,14 @@ jobs:
             run: |
               sudo apt install chromium-browser
               sudo apt-get install chromium-chromedriver
-              
+           
+          - name: Install jq
+            run: |
+              sudo apt-get install jq
               
           - name: Make secret
             run: |
-              cat <<'EOF' > secret.json
-              {
-                  "Username": ${{ secrets.FB_USER_NAME }},
-                  "Password": ${{ secrets.FB_PASSWORD }}
-              }
-              EOF
+              jq -n --arg bn "${{ secrets.FB_USER_NAME }}"--arg pw "${{ secrets.FB_PASSWORD }}" '{Username: $bn, Password: $pw}'
               
               
           - name: Run Script

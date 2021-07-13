@@ -20,7 +20,9 @@ def getStockSoup(ticker, regionCode="", headless=True):
     WINDOW_SIZE = "1920,1080"
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
-    chromeOptions.add_argument("--disable-dev-shm-usage")
+    chromeOptions.add_argument("--no-sandbox")
+
+
 
     driver = webdriver.Chrome(options=chromeOptions)
     driver.get(url)

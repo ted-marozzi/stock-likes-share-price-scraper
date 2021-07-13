@@ -30,16 +30,16 @@ def getnyseSoup(ticker):
     return soup
 
 def getSharePrice(nyse_soup):
-    sharePrice = nyse_soup.find_all("dl", class_= "dl-lg")
+    sharePrice = nyse_soup.find_all("span", class_= "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
+
 
     sharePrice = [_.text for _ in sharePrice]
-    print(sharePrice)
     sharePrice = sharePrice[0]
-    sharePrice = sharePrice.split()
-    sharePrice = sharePrice[5]
+
     print("The share price is", sharePrice)
 
-    return sharePrice
+    return float(sharePrice)
+
 
 
 

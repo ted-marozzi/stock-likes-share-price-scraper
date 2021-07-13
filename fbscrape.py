@@ -19,6 +19,8 @@ import log
 
 import asxscrape as asx
 
+import nysescrape as nyse
+
 
 
 # Logs into facebook

@@ -48,5 +48,5 @@ if __name__ == '__main__':
 
     # Page name is the string in the ur of page after www.facebook.com/
     pageName = "TESLAOfficialPage"
-    soup = getNyseSoup("https://au.finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch")
+    soup = getStockSoup("https://au.finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch")
     print(getSharePrice(soup))

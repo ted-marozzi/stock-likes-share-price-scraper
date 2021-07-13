@@ -1,0 +1,53 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: run-script
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: "55 1 * * 1-5"
+  
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+          # Checkout the branch
+          - name: checkout
+            uses: actions/checkout@v2
+            with: 
+              token: ${{ secrets.MY_PAT }}
+              fetch-depth: 0
+    
+    
+          - name: Set up Python 3.9
+            uses: actions/setup-python@v2
+            with:
+              python-version: 3.9
+              
+          - name: setup git config
+            run: |
+              git config user.name "Ted Marozzi"
+              git config user.email "<>"
+        
+          - name: Install dependencies
+            run: |
+              python -m pip install --upgrade pip
+              if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          
+          - name: Install Chrome
+            run: |
+              sudo apt install chromium-browser
+              sudo apt-get install chromium-chromedriver
+              
+          - name: Run Script
+            run: |
+              python stock-scrape.py
+              
+          - name: Commit
+            run: |
+              git fetch --all
+              git pull --ff-only
+              git add -A
+              git commit -m "Another day another Stonk Scrape"
+              git push

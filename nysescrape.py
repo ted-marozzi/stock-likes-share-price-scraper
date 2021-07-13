@@ -35,11 +35,10 @@ def getSharePrice(nyse_soup):
     sharePrice = [_.text for _ in sharePrice]
     print(sharePrice)
     sharePrice = sharePrice[0]
-    sharePrice = sharePrice.split()
-    sharePrice = sharePrice[5]
+
     print("The share price is", sharePrice)
 
-    return sharePrice
+    return float(sharePrice)
 
 
 

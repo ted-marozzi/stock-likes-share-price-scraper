@@ -6,22 +6,14 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
-
 import time
 import json
 import csv
-
 from matplotlib import pyplot as plt
-
 from datetime import date
-
 import log
-
 import asxscrape as asx
-
 import nysescrape as nyse
-
-
 
 # Logs into facebook
 def _FBLogin(username, password, headless=True):
@@ -33,9 +25,9 @@ def _FBLogin(username, password, headless=True):
     # Should open window or not?
     if headless:
         chromeOptions.add_argument("--headless")
-
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
+
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
     driver.get("https://www.facebook.com/")
@@ -43,12 +35,10 @@ def _FBLogin(username, password, headless=True):
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
 
-
     return driver
 
 
 def _printLoginTest(driver):
-
     if "logout" in driver.page_source:
         print("Login succeeded")
         return True
@@ -62,42 +52,36 @@ def _printLoginTest(driver):
 # Need a json file in directory with Username and Password fields
 def _getSecretKeys():
     with open('secret.json') as fileHandle:
+
         return json.load(fileHandle)
 
 # Works as of 31/07/2020
-
-
 def getPageLikes(pageName, pageSoup):
     dateLogged, lastLine = log.isDateLogged(pageName)
     print("Date logged is:", dateLogged)
     if(dateLogged):
         numberOfLikes = lastLine.split(",")[1]
-
     else:
-
         elementToScrape = "span"
         classNumLikes = "oo9gr5id"
-
         indexNumLikes = 0
 
         # Extract number of page likes
         numberOfLikesArr = pageSoup.find_all(elementToScrape, class_=classNumLikes)
-
         numbers = []
         print("Potential numbers:", numberOfLikesArr)
-        for ele in numberOfLikesArr:
 
+        for ele in numberOfLikesArr:
             ele = ele.text.split(' ')[0]
             ele = ele.replace(",", "")
-
             if ele.isnumeric():
                 numbers.append(int(ele))
 
         numbers.sort(reverse=True)
         print("Numbers:", numbers)
         numberOfLikes = numbers[0]
-
     print(pageName, "page has", numberOfLikes, "likes")
+
     return numberOfLikes
 
 
@@ -111,12 +95,10 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
 
     # Login to browser
     driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
-
     attempts = 0
     while(not _printLoginTest(driver) and attempts < 5):
         driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
         attempts += 1
-
     try:
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
@@ -137,7 +119,6 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
 
     for i in range(maxScroll):
         print("Num Scrolls:", i)
-
         iterCount = 0
         # Scroll down to bottom
         driver.execute_script(
@@ -153,17 +134,13 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
         elif new_height == last_height:
             iterCount += 1
             i -= 1
-
         last_height = new_height
-
     pageSoup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.quit()
 
     return pageSoup
 
 # Function by https://gist.github.com/SanthoshBala18
-
-
 def _strToNum(x):
     total_stars = 0
     num_map = {'K': 1000, 'M': 1000000, 'B': 1000000000, 'k': 1000}
@@ -172,78 +149,49 @@ def _strToNum(x):
     else:
         if len(x) > 1:
             total_stars = float(x[:-1]) * num_map.get(x[-1].upper(), 1)
-    return int(total_stars)
-#
 
+    return int(total_stars)
 
 def plotLikes(pageName, postLikesList):
+
     # plt.bar(range(len(postLikesList)), postLikesList)
     plt.plot(postLikesList)
-
     plt.xlabel("Post number")
     plt.ylabel('Number of likes')
     plt.title(pageName + " likes per post over time.")
     plt.savefig("out/" + pageName + "/" + pageName + ".png")
     plt.clf()
 
-
-
-
-
 # Extracts the post likes from a facebook page soup
 def getPagePostLikes(pageName, pageSoup):
-
     elementToScrape = "span"
     classNumLikes = "pcp91wgn"
 
     # Extract number of page likes
     postLikesList = pageSoup.find_all(elementToScrape, class_=classNumLikes)
-
     del postLikesList[1::2]
 
     # Delete every second starting at 2nd element
     for i in range(len(postLikesList)):
-
         postLikesList[i] = _strToNum(postLikesList[i].text)
-
     postLikesList = list(reversed(postLikesList))
     print(postLikesList)
+    
     return postLikesList
 
-
 def greedyScrapePage(pageName):
-
     pageSoup = getPageSoup(pageName, maxScroll=50)
-
     pagePostLikesList = getPagePostLikes(pageName, pageSoup)
-
     pageLikes = getPageLikes(pageName, pageSoup)
-
     plotLikes(pageName, pagePostLikesList)
 
     return pageLikes, pagePostLikesList
-
 
 if __name__ == '__main__':
 
     # Page name is the string in the ur of page after www.facebook.com/
     pageName = "pointsbet"
-
     pageSoup = getPageSoup(pageName, headless=False)
 
     #pageSoup = BeautifulSoup(open("out/pointsbet/pointsbet.html"), "html.parser")
-
     print(getPageLikes(pageName, pageSoup))
-
-    # TODO =>
-    # Lucas:
-    #   More descriptive errors and print info
-    #   Make averaging function
-    #
-    # Ted:
-    #   make pip installable
-    #   scrape profiles
-    #   make pip install dependencies, and secret .json
-    #   tell users how to install chrome driver, make fn smaller name, make module package make sense
-    #   update read me
-    #

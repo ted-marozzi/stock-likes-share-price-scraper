@@ -4,7 +4,6 @@ import os
 
 OUT_PATH = "out/"
 
-
 def log(pageName, numberOfLikes, sharePrice):
     
     _makeOutDirectory(pageName)
@@ -15,8 +14,6 @@ def log(pageName, numberOfLikes, sharePrice):
             writer = csv.writer(fileHandle)
             writer.writerow([today.strftime("%d/%m/%Y"),
                             str(numberOfLikes), str(sharePrice)])
-
-
 
 def isDateLogged(pageName):
     _makeOutDirectory(pageName)
@@ -42,6 +39,7 @@ def isDateLogged(pageName):
 
 
 def _makeOutDirectory(pageName):
+
     # Check if / needed
     if not os.path.exists("out"):
         os.makedirs("out")
@@ -56,10 +54,6 @@ def _makeOutDirectory(pageName):
             writer = csv.writer(fileHandle)
             writer.writerow(
                 ["Date", pageName.capitalize() + " Page Likes", "Share Price"])
-
-
-
-
 
 def writeSoupToFile(pageSoup, pageName):
     with open(OUT_PATH + pageName + "/" + pageName + ".html", "w", encoding="utf=8") as fileHandle:

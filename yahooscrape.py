@@ -5,18 +5,28 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 
-def getNyseSoup(ticker):
-    url = "https://au.finance.yahoo.com/quote/" + ticker
+def getStockSoup(ticker, regionCode="", headless=True):
+
+    if regionCode!="":
+        regionCode = "." + regionCode
+    url = "https://au.finance.yahoo.com/quote/" + ticker + regionCode
+
+    chromeOptions = Options()
+
+        # Should open window or not?
+    if headless:
+        chromeOptions.add_argument("--headless")
+
     WINDOW_SIZE = "1920,1080"
-    chrome_options = Options()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
-    driver = webdriver.Chrome(options=chrome_options)
+    chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
+    chromeOptions.add_argument("disable-notifications")
+
+    driver = webdriver.Chrome(options=chromeOptions)
     driver.get(url)
 
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]')))
     except:
         pass
     finally:
@@ -25,8 +35,8 @@ def getNyseSoup(ticker):
 
     return soup
 
-def getSharePrice(nyseSoup):
-    sharePrice = nyseSoup.find_all("span", class_= "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
+def getSharePrice(stockSoup):
+    sharePrice = stockSoup.find_all("span", class_= "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
     sharePrice = [_.text for _ in sharePrice]
     sharePrice = sharePrice[0]
     print("The share price is", sharePrice)
@@ -36,6 +46,5 @@ def getSharePrice(nyseSoup):
 if __name__ == '__main__':
 
     # Page name is the string in the ur of page after www.facebook.com/
-    pageName = "TESLAOfficialPage"
-    soup = getNyseSoup("https://au.finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch")
+    soup = getStockSoup("TSLA")
     print(getSharePrice(soup))

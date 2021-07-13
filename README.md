@@ -20,7 +20,7 @@
 
 ```pip install -r requirments.txt```
 
-4) See stock-scrape for an example driver program
+4) See stockscrape for an example driver program
 
 5) See how I used this bot too perform automated data analytics on google sheets
 

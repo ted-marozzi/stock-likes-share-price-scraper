@@ -12,8 +12,6 @@ import csv
 from matplotlib import pyplot as plt
 from datetime import date
 import log
-import asxscrape as asx
-import nysescrape as nyse
 
 # Logs into facebook
 def _FBLogin(username, password, headless=True):
@@ -85,7 +83,7 @@ def getPageLikes(pageName, pageSoup):
     return numberOfLikes
 
 
-def getPageSoup(pageName, maxScroll=1, headless=True):
+def getPageSoup(pageName, maxScroll=0, headless=True):
 
     # Get Authentication
     secret = _getSecretKeys()
@@ -99,6 +97,7 @@ def getPageSoup(pageName, maxScroll=1, headless=True):
     while(not _printLoginTest(driver) and attempts < 5):
         driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
         attempts += 1
+
     try:
         WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
@@ -176,7 +175,7 @@ def getPagePostLikes(pageName, pageSoup):
         postLikesList[i] = _strToNum(postLikesList[i].text)
     postLikesList = list(reversed(postLikesList))
     print(postLikesList)
-    
+
     return postLikesList
 
 def greedyScrapePage(pageName):

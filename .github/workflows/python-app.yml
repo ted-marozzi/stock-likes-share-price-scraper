@@ -40,6 +40,12 @@ jobs:
               sudo apt install chromium-browser
               sudo apt-get install chromium-chromedriver
               
+              
+          - name: Make secret
+            run: |
+              echo "{ "Username": "${{ secrets.FB_USER_NAME }}", "Password": "${{ secrets.FB_PASSWORD }}" }" > secret.json
+              
+              
           - name: Run Script
             run: |
               python stockscrape.py

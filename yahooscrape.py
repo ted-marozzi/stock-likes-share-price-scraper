@@ -11,13 +11,13 @@ def getStockSoup(ticker, regionCode="", headless=True):
         regionCode = "." + regionCode
     url = "https://au.finance.yahoo.com/quote/" + ticker + regionCode
 
-    WINDOW_SIZE = "1920,1080"
-
     chromeOptions = Options()
 
         # Should open window or not?
     if headless:
         chromeOptions.add_argument("--headless")
+
+    WINDOW_SIZE = "1920,1080"
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
 
@@ -26,7 +26,7 @@ def getStockSoup(ticker, regionCode="", headless=True):
 
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]')))
     except:
         pass
     finally:

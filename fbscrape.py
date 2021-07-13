@@ -25,7 +25,7 @@ def _FBLogin(username, password, headless=True):
         chromeOptions.add_argument("--headless")
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
-    chromeOptions.add_argument("--disable-dev-shm-usage")
+    chromeOptions.add_argument("--no-sandbox")
 
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)

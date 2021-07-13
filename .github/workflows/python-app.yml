@@ -43,7 +43,12 @@ jobs:
               
           - name: Make secret
             run: |
-              echo { "Username": ${{ secrets.FB_USER_NAME }}, "Password": ${{ secrets.FB_PASSWORD }} } > secret.json
+              cat <<'EOF' > output.json
+              {
+                  "Username": ${{ secrets.FB_USER_NAME }},
+                  "Password": ${{ secrets.FB_PASSWORD }}
+              }
+              EOF
               
               
           - name: Run Script

@@ -25,3 +25,5 @@
 5) See how I used this bot too perform automated data analytics on google sheets
 
 https://docs.google.com/spreadsheets/d/1fd4rigWrHU5Rq5y7TZr6YR30uVKpme39_r6yaXJBfwI/edit#gid=643877149
+
+6) If you fork this repo a github action will run at 11:55 aest on Mon-Fri and commit results of stockscrap.py to the out directory. It will fail unless you add a valid facebook username to your repo secrets named FB_USER_NAME, and password FB_PASSWORD. This will collect stock data for you every business day without the need to host you rown server.

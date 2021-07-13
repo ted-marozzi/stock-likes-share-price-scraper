@@ -5,8 +5,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 
-def getAsxSoup(ticker):
-    url = "https://www2.asx.com.au/markets/company/" + ticker
+def getNyseSoup(ticker):
+    url = "https://au.finance.yahoo.com/quote/" + ticker
     WINDOW_SIZE = "1920,1080"
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -25,19 +25,17 @@ def getAsxSoup(ticker):
 
     return soup
 
-def getSharePrice(asxSoup):
-    sharePrice = asxSoup.find_all("dl", class_= "dl-lg")
+def getSharePrice(nyseSoup):
+    sharePrice = nyseSoup.find_all("span", class_= "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
     sharePrice = [_.text for _ in sharePrice]
     sharePrice = sharePrice[0]
-    sharePrice = sharePrice.split()
-    sharePrice = sharePrice[5]
     print("The share price is", sharePrice)
 
-    return sharePrice
+    return float(sharePrice)
 
 if __name__ == '__main__':
 
     # Page name is the string in the ur of page after www.facebook.com/
-    pageName = "pointsbet"
-    soup = getAsxSoup("https://www2.asx.com.au/markets/company/PBH")
+    pageName = "TESLAOfficialPage"
+    soup = getNyseSoup("https://au.finance.yahoo.com/quote/TSLA?p=TSLA&.tsrc=fin-srch")
     print(getSharePrice(soup))

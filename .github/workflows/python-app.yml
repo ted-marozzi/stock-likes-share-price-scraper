@@ -46,7 +46,7 @@ jobs:
               
           - name: Make secret
             run: |
-              jq -n --arg bn "${{ secrets.FB_USER_NAME }}"--arg pw "${{ secrets.FB_PASSWORD }}" '{Username: $bn, Password: $pw}'
+              jq -n --arg bn "${{ secrets.FB_USER_NAME }}" --arg pw "${{ secrets.FB_PASSWORD }}" '{Username: $bn, Password: $pw}'
               
               
           - name: Run Script

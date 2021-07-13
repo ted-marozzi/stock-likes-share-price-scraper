@@ -69,7 +69,7 @@ def getPageLikes(pageName, pageSoup):
         # Extract number of page likes
         numberOfLikesArr = pageSoup.find_all(elementToScrape, class_=classNumLikes)
         numbers = []
-        print("Potential numbers:", numberOfLikesArr)
+
 
         for ele in numberOfLikesArr:
             ele = ele.text.split(' ')[0]

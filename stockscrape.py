@@ -1,33 +1,32 @@
 import fbscrape as fb
-import asxscrape as asx
-import nysescrape as nyse
+import yahooscrape as yahoo
 import log
 
 for i in range(5):
     try:
         pageName = "pointsbet"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = asx.getSharePrice(asx.getAsxSoup("PBH"))
+        sharePrice = yahoo.getSharePrice(yahoo.getStockSoup("PBH"))
         log.log(pageName, likes, sharePrice)
 
         pageName = "ZipAU"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = asx.getSharePrice(asx.getAsxSoup("Z1P"))
+        sharePrice = yahoo.getSharePrice(yahoo.getStockSoup("Z1P"))
         log.log(pageName, likes, sharePrice)
 
         pageName = "mineralresourceslimited"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = asx.getSharePrice(asx.getAsxSoup("MIN"))
+        sharePrice = yahoo.getSharePrice(yahoo.getStockSoup("MIN"))
         log.log(pageName, likes, sharePrice)
 
         pageName = "afterpay.it"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = asx.getSharePrice(asx.getAsxSoup("APT"))
+        sharePrice = yahoo.getSharePrice(yahoo.getStockSoup("APT"))
         log.log(pageName, likes, sharePrice)
         
         pageName = "TESLAOfficialPage"
         likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
-        sharePrice = nyse.getSharePrice(nyse.getNyseSoup("TSLA"))
+        sharePrice = yahoo.getSharePrice(yahoo.getStockSoup("TSLA"))
         log.log(pageName, likes, sharePrice)    
 
         break

@@ -12,8 +12,6 @@ import csv
 from matplotlib import pyplot as plt
 from datetime import date
 import log
-import asxscrape as asx
-import nysescrape as nyse
 
 # Logs into facebook
 def _FBLogin(username, password, headless=True):

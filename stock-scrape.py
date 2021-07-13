@@ -21,14 +21,16 @@ for i in range(5):
         # sharePrice = asx.getSharePrice(asx.getAsxSoup("MIN"))
         # log.log(pageName, likes, sharePrice)
 
+
         # pageName = "afterpay.it"
         # likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         # sharePrice = asx.getSharePrice(asx.getAsxSoup("APT"))
         # log.log(pageName, likes, sharePrice)
         
         pageName = "TESLAOfficialPage"
-        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName, headless=False))
+        likes  = fb.getPageLikes(pageName, fb.getPageSoup(pageName))
         sharePrice = nyse.getSharePrice(nyse.getnyseSoup("TSLA"))
+
         log.log(pageName, likes, sharePrice)    
 
         break

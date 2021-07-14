@@ -112,13 +112,13 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
         pass
     finally:
         driver.get("https://www.facebook.com/" + pageName)
-    driver.save_screenshot("page")
+
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         pass
-
+    driver.save_screenshot("page")
     SCROLL_PAUSE_TIME = 2
     RETRIES = 3
 

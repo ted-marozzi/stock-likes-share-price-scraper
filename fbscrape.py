@@ -38,7 +38,7 @@ def _FBLogin(username, password, headless=True):
         driver.get("https://www.facebook.com/")
 
 
-
+    print(username, password)
     driver.find_element_by_xpath('//*[@id="email"]').send_keys(username)
     driver.find_element_by_xpath('//*[@id="pass"]').send_keys(password)
     driver.find_element_by_xpath('//*[@id="pass"]').send_keys(Keys.ENTER)

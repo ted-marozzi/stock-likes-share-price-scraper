@@ -25,14 +25,14 @@ def _FBLogin(username, password, headless=True):
         chromeOptions.add_argument("--headless")
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
-    chromeOptions.add_argument("--no-sandbox")
-    chromeOptions.add_argument("--disable-dev-shm-usage")
+
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
     driver.get("https://www.facebook.com/")
-    driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
-    driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
-    driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
+
+    driver.find_element_by_id('email').send_keys(username)
+    driver.find_element_by_id('pass').send_keys(password)
+    driver.find_element_by_id('pass').send_keys(Keys.ENTER)
 
     return driver
 
@@ -75,9 +75,7 @@ def getPageLikes(pageName, pageSoup):
             ele = ele.replace(",", "")
             if ele.isnumeric():
                 numbers.append(int(ele))
-        
-        print("potential numbers:", numberOfLikesArr)
-        
+
         numbers.sort(reverse=True)
         print("Numbers:", numbers)
         numberOfLikes = numbers[0]
@@ -90,9 +88,6 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
 
     # Get Authentication
     secret = _getSecretKeys()
-
-    # Likes
-    xpath = "/html/body/div[1]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[4]/div[2]/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div[5]/div[1]/div/div/div[2]/div/div/span/span[1]"
 
     # Login to browser
     driver = _FBLogin(secret["Username"], secret["Password"], headless=headless)
@@ -110,9 +105,10 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
 
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         pass
+
     SCROLL_PAUSE_TIME = 2
     RETRIES = 3
 
@@ -137,6 +133,7 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
             iterCount += 1
             i -= 1
         last_height = new_height
+
     pageSoup = BeautifulSoup(driver.page_source, 'html.parser')
     driver.quit()
 

@@ -37,7 +37,7 @@ jobs:
           
           - name: Install Chrome
             run: |
-              sudo snap install chromium-browser
+              sudo snap install chromium
               chromium-browser --version
               sudo snap install chromium-chromedriver
               chromedriver --version

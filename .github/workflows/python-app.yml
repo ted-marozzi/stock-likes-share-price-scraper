@@ -37,9 +37,9 @@ jobs:
           
           - name: Install Chrome
             run: |
-              snap install chromium-browser
+              sudo snap install chromium-browser
               chromium-browser --version
-              snap install chromium-chromedriver
+              sudo snap install chromium-chromedriver
               chromedriver --version
            
           - name: Install jq

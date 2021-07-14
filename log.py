@@ -56,5 +56,6 @@ def _makeOutDirectory(pageName):
                 ["Date", pageName.capitalize() + " Page Likes", "Share Price"])
 
 def writeSoupToFile(pageSoup, pageName):
+    _makeOutDirectory(pageName)
     with open(OUT_PATH + pageName + "/" + pageName + ".html", "w", encoding="utf=8") as fileHandle:
         fileHandle.write(str(pageSoup))

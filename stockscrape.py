@@ -15,7 +15,7 @@ for i in range(5):
             fbSoup = fb.getPageSoup(stock["name"])
             # likes = fb.getPageLikes(stock["name"], fbSoup)
 
-            log.writeSoupToFile(fbSoup)
+            log.writeSoupToFile(fbSoup, stock["name"])
 
             # sharePrice = yahoo.getSharePrice(yahoo.getStockSoup(stock["ticker"], regionCode=stock["regionCode"]))
             # log.log(stock["name"], likes, sharePrice)

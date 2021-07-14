@@ -38,7 +38,9 @@ jobs:
           - name: Install Chrome
             run: |
               sudo apt install chromium-browser
+              chromium-browser --version
               sudo apt-get install chromium-chromedriver
+              chromedriver --version
            
           - name: Install jq
             run: |

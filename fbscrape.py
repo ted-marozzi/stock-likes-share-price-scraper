@@ -39,11 +39,9 @@ def _FBLogin(username, password, headless=True):
 
 
     driver.find_element_by_id('email').send_keys(username)
-    driver.save_screenshot("email.png")
     driver.find_element_by_id('pass').send_keys(password)
-    driver.save_screenshot("password.png")
     driver.find_element_by_id('pass').send_keys(Keys.ENTER)
-    driver.save_screenshot("enter.png")
+
 
     return driver
 
@@ -118,12 +116,13 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
         pass
     finally:
         driver.get("https://www.facebook.com/" + pageName)
-
+    driver.save_screenshot("page")
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         pass
+
     SCROLL_PAUSE_TIME = 2
     RETRIES = 3
 

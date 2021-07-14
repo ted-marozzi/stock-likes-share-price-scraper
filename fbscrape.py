@@ -15,7 +15,8 @@ import log
 
 # Logs into facebook
 def _FBLogin(username, password, headless=True):
-
+    print("Username right", username=="0429585824")
+    print("Password right", password=="Marozzi84")
     WINDOW_SIZE = "1920,1080"
 
     chromeOptions = Options()

@@ -75,7 +75,9 @@ def getPageLikes(pageName, pageSoup):
             ele = ele.replace(",", "")
             if ele.isnumeric():
                 numbers.append(int(ele))
-
+        
+        print("potential numbers:", numberOfLikesArr)
+        
         numbers.sort(reverse=True)
         print("Numbers:", numbers)
         numberOfLikes = numbers[0]

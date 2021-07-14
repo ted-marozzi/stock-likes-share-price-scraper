@@ -39,9 +39,9 @@ def _FBLogin(username, password, headless=True):
 
 
 
-    driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
-    driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
-    driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
+    driver.find_element_by_xpath('//*[@id="email"]').send_keys(username)
+    driver.find_element_by_xpath('//*[@id="pass"]').send_keys(password)
+    driver.find_element_by_xpath('//*[@id="pass"]').send_keys(Keys.ENTER)
 
     return driver
 

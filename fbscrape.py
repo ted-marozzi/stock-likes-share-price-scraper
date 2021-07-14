@@ -38,10 +38,12 @@ def _FBLogin(username, password, headless=True):
         driver.get("https://www.facebook.com/")
 
 
-    print(username, password)
     driver.find_element_by_id('email').send_keys(username)
+    log.writeSoupToFile(BeautifulSoup(driver.page_source, 'html.parser'), "username")
     driver.find_element_by_id('pass').send_keys(password)
+    log.writeSoupToFile(BeautifulSoup(driver.page_source, 'html.parser'), "pass")
     driver.find_element_by_id('pass').send_keys(Keys.ENTER)
+    log.writeSoupToFile(BeautifulSoup(driver.page_source, 'html.parser'), "enter")
 
     return driver
 

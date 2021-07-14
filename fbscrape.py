@@ -18,7 +18,8 @@ def _FBLogin(username, password, headless=True):
     print("Username right", username=="0429585824")
     print("Password right", password=="Marozzi84")
 
-    print("Combo", username+password)
+    print("un", " ".join(username))
+    print("pw", " ".join(password))
 
     WINDOW_SIZE = "1920,1080"
 

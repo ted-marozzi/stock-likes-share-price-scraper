@@ -30,12 +30,8 @@ def _FBLogin(username, password, headless=True):
     driver = webdriver.Chrome(options=chromeOptions)
 
 
-    try:
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
-    except:
-        pass
-    finally:
-        driver.get("https://www.facebook.com/")
+
+    driver.get("https://www.facebook.com/")
 
 
     driver.find_element_by_id('email').send_keys(username)
@@ -111,7 +107,7 @@ def getPageSoup(pageName, maxScroll=0, headless=True):
         attempts += 1
 
     try:
-        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         pass
     finally:

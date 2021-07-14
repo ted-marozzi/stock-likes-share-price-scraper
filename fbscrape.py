@@ -25,11 +25,20 @@ def _FBLogin(username, password, headless=True):
         chromeOptions.add_argument("--headless")
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
-    chromeOptions.add_argument("--no-sandbox")
-    chromeOptions.add_argument("--disable-dev-shm-usage")
+
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
-    driver.get("https://www.facebook.com/")
+
+
+    try:
+        WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, "")))
+    except:
+        pass
+    finally:
+        driver.get("https://www.facebook.com/")
+
+
+
     driver.find_element_by_xpath('//input[@id="email"]').send_keys(username)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(password)
     driver.find_element_by_xpath('//input[@id="pass"]').send_keys(Keys.ENTER)
@@ -75,9 +84,9 @@ def getPageLikes(pageName, pageSoup):
             ele = ele.replace(",", "")
             if ele.isnumeric():
                 numbers.append(int(ele))
-        
+
         print("potential numbers:", numberOfLikesArr)
-        
+
         numbers.sort(reverse=True)
         print("Numbers:", numbers)
         numberOfLikes = numbers[0]

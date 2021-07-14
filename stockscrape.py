@@ -3,9 +3,9 @@ import yahooscrape as yahoo
 import log
 
 stockToScrape = [{"name":"pointsbet", "ticker":"PBH", "regionCode": "AX"},
-                {"name":"ZipAU", "ticker":"Z1P", "regionCode": "AX"},
-                {"name":"mineralresourceslimited", "ticker":"MIN", "regionCode": "AX"},
-                {"name":"afterpay.it", "ticker":"APT", "regionCode": "AX"},
+                #{"name":"ZipAU", "ticker":"Z1P", "regionCode": "AX"},
+                #{"name":"mineralresourceslimited", "ticker":"MIN", "regionCode": "AX"},
+                #{"name":"afterpay.it", "ticker":"APT", "regionCode": "AX"},
                 {"name":"TESLAOfficialPage", "ticker":"TSLA", "regionCode": ""}]
 
 for i in range(5):

@@ -38,6 +38,7 @@ jobs:
           - name: Install jq
             run: |
               sudo apt-get install jq
+              chromedriver -version
               
           - name: Make secret
             run: |

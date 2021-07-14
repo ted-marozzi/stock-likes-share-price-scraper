@@ -35,11 +35,10 @@ jobs:
               python -m pip install --upgrade pip
               if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           
-          - name: Install Chrome
+          - name: Install Google Chrome # Using shell script to install Google Chrome
             run: |
-              sudo snap install chromium
-              echo browser
-              chromium-browser --version
+              sudo chmod +x ./scripts/install-chrome.sh
+              sudo ./scripts/install-chrome.sh
 
            
           - name: Install jq

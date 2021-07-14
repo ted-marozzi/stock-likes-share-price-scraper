@@ -26,7 +26,7 @@ def _FBLogin(username, password, headless=True):
     chromeOptions.add_argument("--window-size=%s" % WINDOW_SIZE)
     chromeOptions.add_argument("disable-notifications")
     chromeOptions.add_argument("--no-sandbox")
-
+    chromeOptions.add_argument("--disable-dev-shm-usage")
     # Opens page and fills in form
     driver = webdriver.Chrome(options=chromeOptions)
     driver.get("https://www.facebook.com/")

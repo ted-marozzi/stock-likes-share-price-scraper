@@ -13,8 +13,8 @@ for i in range(5):
 
         for stock in stockToScrape:
 
-            likes = fb.getPageLikes(stock["name"], fb.getPageSoup(stock["name"], headless=False))
-            sharePrice = yahoo.getSharePrice(yahoo.getStockSoup(stock["ticker"], regionCode=stock["regionCode"], headless=False))
+            likes = fb.getPageLikes(stock["name"], fb.getPageSoup(stock["name"]))
+            sharePrice = yahoo.getSharePrice(yahoo.getStockSoup(stock["ticker"], regionCode=stock["regionCode"]))
             log.log(stock["name"], likes, sharePrice)
 
         break

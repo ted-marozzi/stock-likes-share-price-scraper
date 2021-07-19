@@ -33,7 +33,6 @@ def _FBLogin(username, password, headless=True):
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "")))
     except:
         pass
-    finally:
 
     driver.find_element_by_id('email').send_keys(username)
     driver.find_element_by_id('pass').send_keys(password)

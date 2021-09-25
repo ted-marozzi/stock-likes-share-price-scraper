@@ -9,9 +9,9 @@ stockToScrape = [
                 {"name":"mineralresourceslimited", "ticker":"MIN", "regionCode": "AX"},
                 {"name":"afterpay.it", "ticker":"APT", "regionCode": "AX"},
                 {"name":"coles", "ticker":"COL", "regionCode": "AX"},
-                {"name":"Wesfarmers-Resources-Limited-228765013813567", "ticker":"WES", "regionCode": "AX"}
+                {"name":"Wesfarmers-Resources-Limited-228765013813567", "ticker":"WES", "regionCode": "AX"},
                 # US Stocks
-                {"name":"TESLAOfficialPage", "ticker":"TSLA", "regionCode": ""},
+                {"name":"TESLAOfficialPage", "ticker":"TSLA", "regionCode": ""}
                 ]
 
 for i in range(5):

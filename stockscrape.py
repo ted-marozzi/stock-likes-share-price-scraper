@@ -3,11 +3,15 @@ import yahooscrape as yahoo
 import log
 
 stockToScrape = [
+                # AU Stocks
                 {"name":"pointsbet", "ticker":"PBH", "regionCode": "AX"},
                 {"name":"ZipAU", "ticker":"Z1P", "regionCode": "AX"},
                 {"name":"mineralresourceslimited", "ticker":"MIN", "regionCode": "AX"},
                 {"name":"afterpay.it", "ticker":"APT", "regionCode": "AX"},
-                {"name":"TESLAOfficialPage", "ticker":"TSLA", "regionCode": ""}
+                {"name":"coles", "ticker":"COL", "regionCode": "AX"},
+                {"name":"Wesfarmers-Resources-Limited-228765013813567", "ticker":"WES", "regionCode": "AX"}
+                # US Stocks
+                {"name":"TESLAOfficialPage", "ticker":"TSLA", "regionCode": ""},
                 ]
 
 for i in range(5):

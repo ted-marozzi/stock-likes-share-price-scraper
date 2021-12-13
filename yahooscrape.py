@@ -29,7 +29,7 @@ def getStockSoup(ticker, regionCode="", headless=True):
 
     # Try getting xpath element if not specified scroll and wait as necessary
     try:
-        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="quote-header-info"]/div[3]/div[1]/div/span[1]')))
+        WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="quote-header-info"]/div[3]/div[1]/div/fin-streamer[1]')))
     except:
         pass
     finally:
@@ -38,10 +38,8 @@ def getStockSoup(ticker, regionCode="", headless=True):
 
     return soup
 
-def getSharePrice(stockSoup):
-    sharePrice = stockSoup.find_all("span", class_= "Trsdu(0.3s) Fw(b) Fz(36px) Mb(-4px) D(ib)")
-    sharePrice = [_.text for _ in sharePrice]
-    sharePrice = sharePrice[0]
+def getSharePrice(stockSoup: BeautifulSoup):
+    sharePrice = stockSoup.find("fin-streamer", {'data-test':"qsp-price"}).text.strip().replace(",", "")
     print("The share price is", sharePrice)
 
     return float(sharePrice)

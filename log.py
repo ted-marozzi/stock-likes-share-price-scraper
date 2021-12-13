@@ -5,7 +5,6 @@ import os
 OUT_PATH = "out/"
 
 def log(pageName, numberOfLikes, sharePrice):
-    
     _makeOutDirectory(pageName)
     today = date.today()
     logPath = "out/" + pageName + "/" + pageName + ".csv"
